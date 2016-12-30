@@ -1,0 +1,66 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: url(/resources/background.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  height: 100%;
+  font-family: 'Roboto Slab', serif;
+}
+
+.navbar-default {
+  background-color: rgba(245, 235, 223, 0.95);
+}
+
+#app-container {
+  padding-top: 10%;
+}
+
+h1 {
+  color: rgb(245, 235, 223);
+	font-weight: 700;
+	font-size: 5em;
+}
+
+h3 {
+  color: rgb(245, 235, 223);
+}
+
+#wellcome-content {
+	text-align: center;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+				 0px 0px 13px rgba(0,0,0,0.1),
+				 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+hr {
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.container-float {
+  background-color: rgba(245, 235, 223, 0.80);
+  padding: 20px;
+  border-radius:5px;
+}
+
+.fade-wait-leave {
+  opacity: 1;
+}
+.fade-wait-leave.fade-wait-leave-active {
+  opacity: 0;
+  transition: opacity .4s ease-in;
+}
+
+.fade-wait-enter {
+  opacity: 0;
+}
+.fade-wait-enter.fade-wait-enter-active {
+  opacity: 1;
+  /* Delay the enter animation until the leave completes */
+  transition: opacity .4s ease-in .6s;
+}
