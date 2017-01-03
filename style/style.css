@@ -36,10 +36,29 @@ h3 {
 				 0px 18px 23px rgba(0,0,0,0.1);
 }
 
+#main-container {
+  margin-left: 0;
+  padding-top: 10%;
+}
+
+#compose {
+  margin-left: 15px;
+  margin-bottom: 3%;
+}
+
+
 hr {
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+#wellcome-hr {
 	width: 400px;
-	border-top: 1px solid #f8f8f8;
-	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+#signout {
+  margin-left: 91%;
+  margin-top: 2%;
 }
 
 .container-float {

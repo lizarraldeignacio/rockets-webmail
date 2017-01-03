@@ -1,56 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import NavBar from '../containers/navbar';
-import Login from '../containers/login';
-import Signup from '../containers/signup';
-import Wellcome from '../components/wellcome';
-import ReactCSSTransitionReplace from 'react-css-transition-replace'; // ES6
+import { connect } from 'react-redux';
+import { changeFrontPage } from '../actions/index';
 
 
-const ELEMENTS = {
-  login: <Login key="login" />,
-  signup: <Signup key="signup" />,
-  wellcome: <Wellcome
-              title="Rockets Email"
-              description="The Only Smart Web-Email On The Web"
-              buttonIcon={<i className="fa fa-rocket" aria-hidden="true"></i>}
-              buttonText="Get Started!"
-              key="wellcome" />
-}
-
-export default class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { current: 'wellcome' };
-  }
+class App extends Component {
 
   handleClick(type) {
-    return () => this.setState({ current: type });
+    return () => this.props.changeFrontPage(type);
+  }
+
+  componentWillMount() {
+    this.props.changeFrontPage('wellcome');
   }
 
   render() {
     return (
-      <div className="app-container">
+      <div>
         <NavBar
           brandName={"Rockets "}
           brandIcon={<i className="fa fa-rocket" aria-hidden="true"></i>}
-          loginText={"Login"}
-          loginIcon={<i className="fa fa-user" aria-hidden="true"></i>}
-          signUpText={"Sign Up"}
-          signUpIcon={<i className="fa fa-user-plus" aria-hidden="true"></i>}
-          onLoginClick={this.handleClick('login').bind(this)}
-          onSignUpClick={this.handleClick('signup').bind(this)}
+          signinText={"Sign In"}
+          signinIcon={<i className="fa fa-sign-in" aria-hidden="true"></i>}
+          signoutText={"Sign Out"}
+          signoutIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>}
+          signupText={"Sign Up"}
+          signupIcon={<i className="fa fa-user-plus" aria-hidden="true"></i>}
+          onSigninClick={this.handleClick('signin').bind(this)}
+          onSignoutClick={this.handleClick('logout').bind(this)}
+          onSignupClick={this.handleClick('signup').bind(this)}
           onBrandClick={this.handleClick('wellcome').bind(this)}
           />
-        <div id="app-container" className="container">
-          <ReactCSSTransitionReplace
-            transitionName="fade-wait"
-            transitionEnterTimeout={1000}
-            transitionLeaveTimeout={400}>
-            {ELEMENTS[this.state.current]}
-          </ReactCSSTransitionReplace>
-        </div>
+        {this.props.children}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { frontPageState: state.frontPageState };
+}
+
+export default connect(mapStateToProps, { changeFrontPage })(App);

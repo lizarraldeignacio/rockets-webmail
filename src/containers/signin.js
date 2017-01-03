@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import FieldGroup from '../components/fieldgroup';
-import { reduxForm } from 'redux-form';
 import Button from 'react-bootstrap/lib/Button';
+import { reduxForm } from 'redux-form';
+import FieldGroup from '../components/fieldgroup';
 import _ from 'lodash';
+import { signinUser } from '../actions/index';
 
+/**
+  Signin component
+
+  --TODO: Refactoring
+**/
 
 /**
   Form Fields
 **/
 const FIELDS = {
-  fullname: {
-    type: 'text',
-    label: 'Full name',
-    placeholder: 'Enter full name'
-  },
   email: {
     type: 'email',
     label: 'Email address',
@@ -26,11 +27,7 @@ const FIELDS = {
   }
 }
 
-/**
-  Represents the signup form
-**/
-
-class Signup extends Component {
+class Signin extends Component {
 
   renderField(fieldConfig, field) {
     const fieldHelper = this.props.fields[field];
@@ -47,13 +44,17 @@ class Signup extends Component {
     );
   }
 
+  handleFormSubmit({ email, password }) {
+    this.props.signinUser({ email, password });
+  }
+
   render() {
     return (
-      <div key="signup" className="col-xs-4 col-xs-offset-4 container-float">
-        <form>
+      <div key="signin" className="col-xs-4 col-xs-offset-4 container-float">
+        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit.bind(this))}>
           {_.map(FIELDS, (this.renderField.bind(this)))}
           <Button type="submit">
-            Sign Up
+            Sign In
           </Button>
         </form>
       </div>
@@ -66,7 +67,6 @@ class Signup extends Component {
 **/
 function validate(values) {
   const errors = {};
-
   _.each(FIELDS, (type, field) => {
     if (!values[field]) {
       errors[field] = `Please Enter a ${type['label']}`;
@@ -85,7 +85,7 @@ function validate(values) {
     validate: the validation function
 **/
 export default reduxForm({
-  form: 'SignUpForm',
+  form: 'SignInForm',
   fields: _.keys(FIELDS),
   validate
-})(Signup);
+}, null, { signinUser })(Signin);

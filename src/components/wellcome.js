@@ -23,8 +23,11 @@ class Wellcome extends Component {
       		<div id="wellcome-content">
       			<h1>{this.props.title}</h1>
       			<h3>{this.props.description}</h3>
-      			<hr></hr>
-      			<button className="btn btn-default btn-lg">{this.props.buttonIcon} {this.props.buttonText}</button>
+      			<hr id="wellcome-hr"></hr>
+      			<button
+              onClick={this.props.onClickHandler}
+              className="btn btn-default btn-lg">{this.props.buttonIcon} {this.props.buttonText}
+            </button>
       		</div>
       	</div>
       </div>
