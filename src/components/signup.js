@@ -3,7 +3,7 @@ import FieldGroup from './fieldgroup';
 import { reduxForm } from 'redux-form';
 import Button from 'react-bootstrap/lib/Button';
 import _ from 'lodash';
-
+import { signupUser } from '../actions/index'
 
 /**
   Form Fields
@@ -22,6 +22,11 @@ const FIELDS = {
   password: {
     type: 'password',
     label: 'Password',
+    placeholder: ''
+  },
+  passwordConfirmation: {
+    type: 'password',
+    label: 'Confirm password',
     placeholder: ''
   }
 }
@@ -47,11 +52,26 @@ class Signup extends Component {
     );
   }
 
+  handleFormSubmit(formProps) {
+    this.props.signupUser(formProps);
+  }
+
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+            <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div key="signup" className="col-xs-4 col-xs-offset-4 container-float">
-        <form>
+        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit.bind(this))}>
           {_.map(FIELDS, (this.renderField.bind(this)))}
+          {this.renderAlert.bind(this)()}
           <Button type="submit">
             Sign Up
           </Button>
@@ -59,6 +79,10 @@ class Signup extends Component {
       </div>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error };
 }
 
 /**
@@ -72,6 +96,10 @@ function validate(values) {
       errors[field] = `Please Enter a ${type['label']}`;
     }
   });
+
+  if (values.password !== values.passwordConfirmation) {
+    errors['passwordConfirmation'] = "Passwords must match";
+  }
 
   return errors;
 }
@@ -88,4 +116,4 @@ export default reduxForm({
   form: 'SignUpForm',
   fields: _.keys(FIELDS),
   validate
-})(Signup);
+}, mapStateToProps, { signupUser })(Signup);
