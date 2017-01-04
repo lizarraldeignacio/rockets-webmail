@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FieldGroup from '../components/fieldgroup';
+import FieldGroup from './fieldgroup';
 import { reduxForm } from 'redux-form';
 import Button from 'react-bootstrap/lib/Button';
 import _ from 'lodash';

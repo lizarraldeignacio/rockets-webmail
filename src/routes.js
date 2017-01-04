@@ -1,13 +1,25 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/app';
-import MainPage from './containers/mainpage';
-import FrontPage from './containers/frontpage';
-
+import MainPage from './components/mainpage';
+import Wellcome from './components/wellcome';
+import Signout from './components/signout';
+import Signin from './components/signin';
+import Signup from './components/signup';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={FrontPage} />
+    <IndexRoute component={Wellcome}
+      title="Rockets Email"
+      description="The Only Smart Web-Email On The Web"
+      buttonIcon={<i className="fa fa-rocket" aria-hidden="true"></i>}
+      buttonText="Get Started!"
+      key="wellcome"
+      onClickHandler={ () => browserHistory.push('/signup') }
+      />
+    <Route path="signin" component={Signin} />
     <Route path="main" component={MainPage} />
+    <Route path="signout" component={Signout} />
+    <Route path="signup" component={Signup} />
   </Route>
 );

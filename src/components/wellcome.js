@@ -14,6 +14,12 @@ class Wellcome extends Component {
 
   constructor(props) {
     super(props);
+    if (this.props.route) {
+      this.state = {...this.props.route};
+    }
+    else {
+      this.state = {...this.props};
+    }
   }
 
   render() {
@@ -21,12 +27,12 @@ class Wellcome extends Component {
       <div className="container">
       	<div className="col-lg-12">
       		<div id="wellcome-content">
-      			<h1>{this.props.title}</h1>
-      			<h3>{this.props.description}</h3>
+      			<h1>{this.state.title}</h1>
+      			<h3>{this.state.description}</h3>
       			<hr id="wellcome-hr"></hr>
       			<button
-              onClick={this.props.onClickHandler}
-              className="btn btn-default btn-lg">{this.props.buttonIcon} {this.props.buttonText}
+              onClick={this.state.onClickHandler}
+              className="btn btn-default btn-lg">{this.state.buttonIcon} {this.state.buttonText}
             </button>
       		</div>
       	</div>

@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import Sidebar from '../containers/sidebar';
+import Sidebar from './sidebar';
 import Button from 'react-bootstrap/lib/Button';
 
 
 class MainPage extends Component {
 
   componentWillMount() {
-      document.body.style.background = "url(/resources/main.jpg)";
-      document.body.style.backgroundSize = "cover";
+    document.body.classList.add("blur");
   }
 
   render() {
     return (
-      <div id="main-container" className="container">
+      <div className="col-lg-12">
         <Button id="compose" type="submit">
           <i className="fa fa-rocket" aria-hidden="true"></i> Compose
         </Button>
-        <div className="col-lg-12">
-          <Sidebar />
-        </div>
+        <Sidebar />
       </div>
     );
   }

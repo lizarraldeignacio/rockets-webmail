@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { reduxForm } from 'redux-form';
-import FieldGroup from '../components/fieldgroup';
+import FieldGroup from './fieldgroup';
 import _ from 'lodash';
 import { signinUser } from '../actions/index';
 
@@ -48,11 +48,22 @@ class Signin extends Component {
     this.props.signinUser({ email, password });
   }
 
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops!</strong> { this.props.errorMessage }
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div key="signin" className="col-xs-4 col-xs-offset-4 container-float">
         <form onSubmit={this.props.handleSubmit(this.handleFormSubmit.bind(this))}>
           {_.map(FIELDS, (this.renderField.bind(this)))}
+          { this.renderAlert.bind(this)() }
           <Button type="submit">
             Sign In
           </Button>
@@ -60,6 +71,10 @@ class Signin extends Component {
       </div>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error }
 }
 
 /**
@@ -88,4 +103,4 @@ export default reduxForm({
   form: 'SignInForm',
   fields: _.keys(FIELDS),
   validate
-}, null, { signinUser })(Signin);
+}, mapStateToProps, { signinUser })(Signin);

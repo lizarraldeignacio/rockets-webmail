@@ -1,17 +1,22 @@
-import React, { Component, PropTypes } from 'react';
-import NavBar from '../containers/navbar';
+import React, { Component } from 'react';
+import NavBar from './navbar';
 import { connect } from 'react-redux';
-import { changeFrontPage } from '../actions/index';
+import { browserHistory } from 'react-router';
 
 
 class App extends Component {
 
   handleClick(type) {
-    return () => this.props.changeFrontPage(type);
+    return () => browserHistory.push(type);
   }
 
   componentWillMount() {
-    this.props.changeFrontPage('wellcome');
+    document.body.classList.remove("blur");
+  }
+
+  handleSignoutClick() {
+    document.body.classList.remove("blur");
+    browserHistory.push('/signout');
   }
 
   render() {
@@ -26,19 +31,17 @@ class App extends Component {
           signoutIcon={<i className="fa fa-sign-out" aria-hidden="true"></i>}
           signupText={"Sign Up"}
           signupIcon={<i className="fa fa-user-plus" aria-hidden="true"></i>}
-          onSigninClick={this.handleClick('signin').bind(this)}
-          onSignoutClick={this.handleClick('logout').bind(this)}
-          onSignupClick={this.handleClick('signup').bind(this)}
-          onBrandClick={this.handleClick('wellcome').bind(this)}
+          onSigninClick={this.handleClick('/signin').bind(this)}
+          onSignoutClick={this.handleSignoutClick.bind(this)}
+          onSignupClick={this.handleClick('/signup').bind(this)}
+          onBrandClick={this.handleClick('/').bind(this)}
           />
-        {this.props.children}
+          <div id="app-container" className="container">
+            {this.props.children}
+          </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return { frontPageState: state.frontPageState };
-}
-
-export default connect(mapStateToProps, { changeFrontPage })(App);
+export default App;

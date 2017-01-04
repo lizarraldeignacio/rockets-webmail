@@ -2,8 +2,30 @@ html {
   height: 100%;
 }
 
+body.blur:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+
+  display: block;
+  background-image: url(/resources/main.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  height: 100%;
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
 body {
-  background: url(/resources/background.jpg);
+  display: block;
+  background-image: url(/resources/background.jpg);
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
@@ -36,16 +58,9 @@ h3 {
 				 0px 18px 23px rgba(0,0,0,0.1);
 }
 
-#main-container {
-  margin-left: 0;
-  padding-top: 10%;
-}
-
 #compose {
-  margin-left: 15px;
   margin-bottom: 3%;
 }
-
 
 hr {
   border-top: 1px solid #f8f8f8;
@@ -65,21 +80,4 @@ hr {
   background-color: rgba(245, 235, 223, 0.80);
   padding: 20px;
   border-radius:5px;
-}
-
-.fade-wait-leave {
-  opacity: 1;
-}
-.fade-wait-leave.fade-wait-leave-active {
-  opacity: 0;
-  transition: opacity .4s ease-in;
-}
-
-.fade-wait-enter {
-  opacity: 0;
-}
-.fade-wait-enter.fade-wait-enter-active {
-  opacity: 1;
-  /* Delay the enter animation until the leave completes */
-  transition: opacity .4s ease-in .6s;
 }

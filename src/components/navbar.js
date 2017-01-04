@@ -26,6 +26,29 @@ class NavBar extends Component {
     super(props);
   }
 
+
+  renderButtons() {
+    if (this.props.authenticated) {
+      return (
+        <NavItem
+          onClick={this.props.onSignoutClick}>
+          {this.props.signoutText} {this.props.signoutIcon}
+        </NavItem>);
+    }
+    else {
+      return [
+        <NavItem
+          onClick={this.props.onSignupClick}>
+          {this.props.signupText} {this.props.signupIcon}
+        </NavItem>,
+        <NavItem
+          onClick={this.props.onSigninClick}>
+          {this.props.signinText} {this.props.signinIcon}
+        </NavItem>
+      ];
+    }
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect>
@@ -37,17 +60,9 @@ class NavBar extends Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            { this.props.authenticated ?
-              <Nav pullRight>
-                <NavItem onClick={this.props.onsignoutClick} eventKey={2} href="#">{this.props.signoutText} {this.props.signoutIcon}</NavItem>
-              </Nav>
-              :
-              <Nav pullRight>
-                <NavItem onClick={this.props.onSignupClick}>{this.props.signupText} {this.props.signupIcon} </NavItem>
-                <NavItem onClick={this.props.onSigninClick} eventKey={2} href="#">{this.props.signinText} {this.props.signinIcon}</NavItem>
-              </Nav>
-
-            }
+            <Nav pullRight>
+              { this.renderButtons() }
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
     );
