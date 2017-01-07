@@ -2,7 +2,9 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { AUTH_USER,
          AUTH_ERROR,
-         DEAUTH_USER
+         DEAUTH_USER,
+         FETCH_RECEIVED_MESSAGES,
+         FETCH_SENT_MESSAGES
        } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
@@ -54,13 +56,25 @@ export function signoutUser() {
   };
 }
 
-export function fetchMessage() {
+function getFetchMessageAction(type) {
+  switch (type) {
+    case 'sent':
+      return FETCH_SENT_MESSAGES;
+    default:
+      return FETCH_RECEIVED_MESSAGES;
+  }
+}
+
+export function fetchMessages(type) {
   return function(dispatch) {
-    axios.get(ROOT_URL, {
+    axios.get(`${ROOT_URL}/message?type=${type}`, {
       headers: { authorization: localStorage.getItem('token') }
     })
       .then(response => {
-        console.log(response);
+        dispatch({
+          type: getFetchMessageAction(type),
+          payload: response.data
+        });
       });
   }
 }

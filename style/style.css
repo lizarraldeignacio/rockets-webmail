@@ -38,7 +38,7 @@ body {
 }
 
 #app-container {
-  padding-top: 10%;
+  padding-top: 7%;
 }
 
 h1 {
@@ -49,6 +49,24 @@ h1 {
 
 h3 {
   color: rgb(245, 235, 223);
+}
+
+#maillist-small-from {
+  float: left;
+  width: 50%;
+}
+
+#maillist-small-timestamp {
+  float: right;
+  width: 50%;
+  text-align: right;
+}
+
+#maillist-small-subject {
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 #wellcome-content {
@@ -80,4 +98,9 @@ hr {
   background-color: rgba(245, 235, 223, 0.80);
   padding: 20px;
   border-radius:5px;
+}
+
+.list-scroll {
+  max-height: 400px;
+  overflow-y: auto;
 }

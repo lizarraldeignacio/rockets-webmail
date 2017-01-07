@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './sidebar';
 import Button from 'react-bootstrap/lib/Button';
-import { fetchMessage } from '../actions/index';
+import { fetchMessages } from '../actions/index';
 import { connect } from 'react-redux';
 
 
@@ -9,7 +9,6 @@ class MainPage extends Component {
 
   componentWillMount() {
     document.body.classList.add("blur");
-    this.props.fetchMessage();
   }
 
   render() {
@@ -24,4 +23,4 @@ class MainPage extends Component {
   }
 }
 
-export default connect(null, { fetchMessage })(MainPage);
+export default connect(null, { fetchMessages })(MainPage);

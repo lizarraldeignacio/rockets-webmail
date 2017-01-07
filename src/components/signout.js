@@ -10,7 +10,7 @@ class Signout extends Component {
 
   render() {
     return (
-      <div><strong>Sorry to see you go...</strong></div>
+      <div><strong style={{color : 'white'}}>Sorry to see you go...</strong></div>
     );
   }
 }

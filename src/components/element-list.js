@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
-import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import { connect } from 'react-redux';
+import ListElement from './list-element';
+import { fetchMessages } from '../actions/index';
+import _ from 'lodash';
 
 class ElementList extends Component {
+
+
+  componentWillMount() {
+    this.props.fetchMessages(this.props.type);
+  }
+
+  renderList() {
+    return (
+      _.map(this.props[this.props.type], message => {
+          return (
+            <ListElement message={message} />
+          );
+        })
+    );
+  }
 
   render() {
     return (
       <ListGroup>
-        <ListGroupItem>Email 1</ListGroupItem>
-        <ListGroupItem>Email 2</ListGroupItem>
+        {this.renderList.bind(this)()}
       </ListGroup>
     );
   }
 }
 
-export default ElementList;
+function mapStateToProps(state) {
+  return {
+    sent: state.messages.sent,
+    received: state.messages.received
+  };
+}
+
+export default connect(mapStateToProps, { fetchMessages })(ElementList);

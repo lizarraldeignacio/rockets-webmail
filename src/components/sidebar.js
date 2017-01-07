@@ -11,7 +11,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+      <Tab.Container defaultActiveKey="inbox">
         <Row className="clearfix">
           <Col sm={4}>
             <Nav bsStyle="pills" stacked>
@@ -24,13 +24,13 @@ class Sidebar extends Component {
             </Nav>
             <hr></hr>
           </Col>
-          <Col className="container-float" sm={8}>
+          <Col className="container-float list-scroll" sm={8}>
             <Tab.Content animation>
               <Tab.Pane eventKey="inbox">
-                <ElementList />
+                <ElementList type='received' />
               </Tab.Pane>
               <Tab.Pane eventKey="sent">
-                Sent content
+                <ElementList type='sent' />
               </Tab.Pane>
             </Tab.Content>
           </Col>
